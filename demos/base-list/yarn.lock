@@ -2214,13 +2214,13 @@ rc-virtual-list@^3.14.2, rc-virtual-list@^3.5.1, rc-virtual-list@^3.5.2:
     rc-resize-observer "^1.0.0"
     rc-util "^5.36.0"
 
-react-branch-list@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-branch-list/-/react-branch-list-1.0.1.tgz#b9ee77929644321673c34dcc436e79ed92be1812"
-  integrity sha512-9POIUI6KvwZKb557yCxeItxK8W2+dHM+BJWNkEAIZKChqox/ylXKZ4qefIXVNJTjRnFhktfj7NL2oVli8KJomg==
+react-branch-list@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-branch-list/-/react-branch-list-1.0.2.tgz#78daf9d3d098c267ee34ff5f42bed1d67575e8e5"
+  integrity sha512-wD+ltWEbQ6bo1v4AU5j7BIi05aMydTHAy6aR8JJyfBN8kss/ZKRQ28EyK0tfcndadpYLUjoZjF85rte7tDvLLw==
   dependencies:
     react "^19.0.0"
-    vsc-base-kits "^1.0.4"
+    vsc-base-kits "^1.0.6"
 
 react-dom@^18.2.0:
   version "18.3.1"
@@ -2533,10 +2533,10 @@ vite@^5.2.0:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vsc-base-kits@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/vsc-base-kits/-/vsc-base-kits-1.0.4.tgz#2e6b71aae6055122e0e8dec60a85ad6c0d5f7b31"
-  integrity sha512-jAtWLR4KgqXYsOHDdlwmZ1DaCJkzdAOAbTiq8OGsv5aj1jm7a/jXFSnsq1Q7YLfi8CUr5b+ha03VeoCFD4KwIg==
+vsc-base-kits@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/vsc-base-kits/-/vsc-base-kits-1.0.6.tgz#d5a7ef07cecc766caf97be1461000932e55c29f7"
+  integrity sha512-qBz8EhyGsIv1zzZynWeAXEikdqYrWE8djKYv/gXffOZGt0216nTzJuZc97q8exPsRJvH3M39IIPz01+fLjkwxg==
   dependencies:
     tsc "^2.0.4"
 

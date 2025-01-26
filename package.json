@@ -1,29 +1,24 @@
 {
   "name": "react-branch-list",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A React component for rendering lists based on tree structures. ",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.mjs",
+  "typings": "dist/esm/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "ts-node ./scripts/clean.ts && tsc"
+    "build:cjs": "tsc --project tsconfig.commonjs.json",
+    "build:esm": "tsc --project tsconfig.esm.json",
+    "build": "ts-node ./scripts/clean.ts && yarn build:cjs && yarn build:esm"
   },
   "repository": "https://github.com/SunXinZH/react-branch-list.git",
   "author": "SunXin <xin.sun.zh@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "react": "^19.0.0",
-    "vsc-base-kits": "^1.0.4"
+    "vsc-base-kits": "^1.0.6"
   },
   "devDependencies": {
     "@types/node": "^22.10.10",

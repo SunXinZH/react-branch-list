@@ -2,8 +2,9 @@ import React from "react";
 
 import "./App.css";
 
-function App() {
-  return <div>{"hello"}</div>;
-}
+import {  BranchListDemo } from "./components/branch-list"
+const App: React.FC = () => {
+  return <BranchListDemo />;
+};
 
 export default App;

@@ -2,10 +2,9 @@ import React from "react";
 import { IBranchListProvider } from "./../common/types";
 import { BranchListProvider } from "./../common/provider";
 
-import { IBranchListContext, IBranchListProps, IToRenderItem } from "./types";
+import { IBranchListProps, IToRenderItem } from "./types";
 import { BranchListContextProvider } from "./context";
 import { BranchNode } from "./node";
-import { Barrier } from "vsc-base-kits";
 
 interface IBranchListRef<T extends object> {
   provider: IBranchListProvider<T>;
@@ -33,6 +32,10 @@ export function BranchList<T extends object>(
         }, 0);
       }
     });
+
+    return () => {
+      d.dispose();
+    };
   }, []);
   React.useImperativeHandle(
     ref,

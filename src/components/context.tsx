@@ -1,5 +1,5 @@
 import React from 'react';
-import { IBranchListContext, IBranchListProps } from "./types"
+import { IBranchListContext } from "./types"
 import { IBranchListItem } from "./../common/types"
 
 

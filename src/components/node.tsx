@@ -6,7 +6,7 @@ const RenderNode: React.FC<{ itemId: string; onDisposed: ()=> void }> = ({ itemI
   const divRef = React.useRef<HTMLDivElement>(null);
   const content = React.useMemo(() => {
     const item = provider.get(itemId);
-    return item ? onRenderItem(item) : undefined;
+    return item ? onRenderItem(item) : <div />;
   }, [itemId, onRenderItem]);
 
   React.useEffect(() => {
@@ -33,7 +33,7 @@ const RenderNode: React.FC<{ itemId: string; onDisposed: ()=> void }> = ({ itemI
       }
     };
 
-    const d = provider.onPositionChanged((e) => {
+    const d = provider.onPositionChanged(() => {
       onUpdateOrder();
     });
     onUpdateOrder();

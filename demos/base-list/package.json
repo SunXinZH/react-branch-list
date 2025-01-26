@@ -1,5 +1,5 @@
 {
-  "name": "antd-demo",
+  "name": "base-list",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,9 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/material": "^6.4.1",
+    "@mui/styled-engine-sc": "^6.4.0",
     "antd": "^5.16.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-branch-list": "^1.0.1",
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1.14",
+    "vsc-base-kits": "^1.0.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",
@@ -24,6 +29,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }

@@ -15,9 +15,12 @@
   "author": "SunXin <xin.sun.zh@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "sx-base-kits": "^1.0.3"
+    "react": "^19.0.0",
+    "vsc-base-kits": "^1.0.4"
   },
   "devDependencies": {
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
     "tsc": "^2.0.4",
     "typescript": "^5.7.3"
   }

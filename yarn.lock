@@ -2,12 +2,27 @@
 # yarn lockfile v1
 
 
-sx-base-kits@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/sx-base-kits/-/sx-base-kits-1.0.3.tgz#6ea246862aca6ba0e3871f3970abf41b47466a13"
-  integrity sha512-YnDD66KRJhTu1i0LEycz+3KC/d5kYC22k+49kOsdeES+Vkbq69kwv0j0DOL1zcAxooV6sxRWZNAj/gVEVAFXFw==
+"@types/react-dom@^19.0.3":
+  version "19.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-19.0.3.tgz#0804dfd279a165d5a0ad8b53a5b9e65f338050a4"
+  integrity sha512-0Knk+HJiMP/qOZgMyNFamlIjw9OFCsyC2ZbigmEEyXXixgre6IQpm/4V+r3qH4GC1JPvRJKInw+on2rV6YZLeA==
+
+"@types/react@^19.0.8":
+  version "19.0.8"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.0.8.tgz#7098e6159f2a61e4f4cef2c1223c044a9bec590e"
+  integrity sha512-9P/o1IGdfmQxrujGbIMDyYaaCykhLKc0NGCtYcECNUr9UAaDe4gwvV9bR6tvd5Br1SG0j+PBpbKr2UYY8CwqSw==
   dependencies:
-    tsc "^2.0.4"
+    csstype "^3.0.2"
+
+csstype@^3.0.2:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.3.tgz#d80ff294d114fb0e6ac500fbf85b60137d7eff81"
+  integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
+
+react@^19.0.0:
+  version "19.0.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-19.0.0.tgz#6e1969251b9f108870aa4bff37a0ce9ddfaaabdd"
+  integrity sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==
 
 tsc@^2.0.4:
   version "2.0.4"
@@ -18,3 +33,10 @@ typescript@^5.7.3:
   version "5.7.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.7.3.tgz#919b44a7dbb8583a9b856d162be24a54bf80073e"
   integrity sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw==
+
+vsc-base-kits@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/vsc-base-kits/-/vsc-base-kits-1.0.4.tgz#2e6b71aae6055122e0e8dec60a85ad6c0d5f7b31"
+  integrity sha512-jAtWLR4KgqXYsOHDdlwmZ1DaCJkzdAOAbTiq8OGsv5aj1jm7a/jXFSnsq1Q7YLfi8CUr5b+ha03VeoCFD4KwIg==
+  dependencies:
+    tsc "^2.0.4"

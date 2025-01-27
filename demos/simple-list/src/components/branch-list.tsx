@@ -1,20 +1,15 @@
 import React from "react";
 
 import { Button, Stack, Divider } from "@mui/material";
-import {
-  BranchList,
-  BranchListProvider,
-  IBranchListItem,
-} from "react-branch-list";
+import { BranchList, IBranchListRef, IBranchListItem } from "react-branch-list";
 import { ListItem } from "./list-item";
 
+type ContentType = { content: string };
 export const BranchListDemo: React.FC = () => {
-  const provider = React.useMemo(() => {
-    return new BranchListProvider<{ content: string }>();
-  }, []);
+  const provider = React.useRef<IBranchListRef<ContentType> | null>(null);
 
   const onRenderItem = React.useCallback(
-    (item: IBranchListItem<{ content: string }>) => {
+    (item: IBranchListItem<ContentType>) => {
       return <ListItem id={item.id} content={item.content} />;
     },
     []
@@ -39,23 +34,23 @@ export const BranchListDemo: React.FC = () => {
           variant="contained"
           sx={{ flex: 1 }}
           onClick={async () => {
-            const len = provider.items.length;
+            const len = provider.current?.provider.items.length ?? 0;
 
             for (let index = 1; index < 11; index++) {
-              await provider.push({
+              await provider.current?.provider.push({
                 id: `node-${len + index}`,
                 content: `content-${len + index}`,
               });
             }
           }}
         >
-          ADD
+          ADD 10 Items
         </Button>
         <Button
           sx={{ flex: 1 }}
           variant="contained"
           onClick={() => {
-            provider.clear();
+            provider.current?.provider.clear();
           }}
         >
           Clear
@@ -63,10 +58,16 @@ export const BranchListDemo: React.FC = () => {
       </Stack>
       <Divider />
       <BranchList
+        ref={provider}
         className="branch-list"
         direction="column"
-        provider={provider}
         onRenderItem={onRenderItem}
+        defaultItems={new Array(5).fill(1).map((_, index) => {
+          return {
+            id: `node-${index}`,
+            content: `content-${index}`,
+          };
+        })}
       />
     </Stack>
   );

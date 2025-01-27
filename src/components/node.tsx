@@ -75,9 +75,6 @@ const ObserveNode: React.FC = () => {
         currentId.current = e.item;
         setId(e.item);
         e.barrier.open();
-      } else if (e.type === "remove" && e.item === currentId.current) {
-        currentId.current = null;
-        setId(null);
       }
     });
 

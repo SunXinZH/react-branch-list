@@ -2220,10 +2220,22 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.7.tgz#50ae4353eaaddc04044279812f52c8c65857dbcb"
   integrity sha512-hKormJbkJqzQGhziax5PItDUTMAM9uE2XXQmM37dyd4hVM+5aVl7oVxMVUiVQn2oCQFN/LKCZdvSM0pFRqbSmQ==
 
+"@types/react-dom@^19.0.3":
+  version "19.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-19.0.3.tgz#0804dfd279a165d5a0ad8b53a5b9e65f338050a4"
+  integrity sha512-0Knk+HJiMP/qOZgMyNFamlIjw9OFCsyC2ZbigmEEyXXixgre6IQpm/4V+r3qH4GC1JPvRJKInw+on2rV6YZLeA==
+
 "@types/react-transition-group@^4.4.12":
   version "4.4.12"
   resolved "https://registry.yarnpkg.com/@types/react-transition-group/-/react-transition-group-4.4.12.tgz#b5d76568485b02a307238270bfe96cb51ee2a044"
   integrity sha512-8TV6R3h2j7a91c+1DXdJi3Syo69zzIZbz7Lg5tORM5LEJG7X/E6a1V3drRyBRZq7/utz7A+c4OgYLiLcYGHG6w==
+
+"@types/react@^19.0.8":
+  version "19.0.8"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.0.8.tgz#7098e6159f2a61e4f4cef2c1223c044a9bec590e"
+  integrity sha512-9P/o1IGdfmQxrujGbIMDyYaaCykhLKc0NGCtYcECNUr9UAaDe4gwvV9bR6tvd5Br1SG0j+PBpbKr2UYY8CwqSw==
+  dependencies:
+    csstype "^3.0.2"
 
 "@types/resolve@1.17.1":
   version "1.17.1"
@@ -7891,10 +7903,10 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-branch-list@^1.0.29:
-  version "1.0.29"
-  resolved "https://registry.yarnpkg.com/react-branch-list/-/react-branch-list-1.0.29.tgz#4b5f835a3986613e44083ed81ad858b792f2cbf2"
-  integrity sha512-m39zu3sJyRPX0Ejfhzqv2b8UaeVwsesOHfGPd35s5s8shwxbeuLSdfb/ky8CDPyVdEB8PFtLdJflCOwp35z0wQ==
+react-branch-list@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-branch-list/-/react-branch-list-1.1.0.tgz#9262227ca60244e18ee8776327a571fabe3ed52c"
+  integrity sha512-zbse8h+Gvv2eqBslBNgN4FtadwNyo3hyc0HCCirsauL4KpkctJTWOzPJBKs2b4Zrvn0XVcpoeD5NISMcEaKGzA==
   dependencies:
     react "^19.0.0"
     vsc-base-kits "^1.0.12"

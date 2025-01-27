@@ -34,7 +34,7 @@ const RenderNode: React.FC<{ defaultItemId: string }> = ({ defaultItemId }) => {
     return () => {
       d.dispose();
     };
-  }, [itemId]);
+  }, [itemId, provider]);
   React.useEffect(() => {
     const onUpdateOrder = (): void => {
       if (divRef.current) {
@@ -54,7 +54,7 @@ const RenderNode: React.FC<{ defaultItemId: string }> = ({ defaultItemId }) => {
     return () => {
       d.dispose();
     };
-  }, []);
+  }, [itemId, provider]);
   return (
     <div ref={divRef} className="branch-render-node">
       {content}
@@ -90,7 +90,7 @@ const ObserveNode: React.FC = () => {
     return () => {
       d.dispose();
     };
-  }, [provider]);
+  }, [popToRenderItem, provider]);
   return (
     <React.Fragment>{id && <BranchNode defaultItemId={id} />}</React.Fragment>
   );

@@ -6,13 +6,14 @@ import { IBranchListProps, IToRenderItem } from "./types";
 import { BranchListContextProvider } from "./context";
 import { BranchNode } from "./node";
 
-interface IBranchListRef<T extends object> {
+export interface IBranchListRef<T extends object = {}> {
   provider: IBranchListProvider<T>;
 }
-export function BranchList<T extends object>(
+
+const _BranchList = <T extends object>(
   props: IBranchListProps<T>,
-  ref?: React.Ref<IBranchListRef<T>>
-): React.ReactElement {
+  ref: React.Ref<IBranchListRef<T>>
+) => {
   const providerRef = React.useRef<IBranchListProvider<T>>(
     props.provider || new BranchListProvider<T>(props.defaultItems || [])
   );
@@ -77,4 +78,12 @@ export function BranchList<T extends object>(
       </div>
     </BranchListContextProvider>
   );
-}
+};
+
+export const BranchList = React.forwardRef(_BranchList) as unknown as <
+  T extends object
+>(
+  props: IBranchListProps<T> & {
+    ref?: React.Ref<IBranchListRef<T>>;
+  }
+) => React.ReactElement;

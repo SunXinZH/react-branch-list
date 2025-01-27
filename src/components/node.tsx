@@ -1,12 +1,13 @@
 import React from "react";
 import { useBranchListContext } from "./context";
 
-const RenderNode: React.FC<{ itemId: string; onDisposed: ()=> void }> = ({ itemId, onDisposed }) => {
+const RenderNode: React.FC<{ defaultItemId: string }> = ({ defaultItemId }) => {
+  const [itemId, setItemId] = React.useState<string>(defaultItemId);
   const { provider, onRenderItem } = useBranchListContext();
   const divRef = React.useRef<HTMLDivElement>(null);
   const content = React.useMemo(() => {
     const item = provider.get(itemId);
-    return item ? onRenderItem(item) : <div />;
+    return item ? onRenderItem(item) : <div className="discarded-node" />;
   }, [itemId, onRenderItem, provider]);
 
   React.useEffect(() => {
@@ -17,11 +18,23 @@ const RenderNode: React.FC<{ itemId: string; onDisposed: ()=> void }> = ({ itemI
 
   React.useEffect(() => {
     return () => {
-      provider.notifyItemDisposed(itemId);
-      onDisposed();
+      if (itemId) {
+        provider.notifyItemDisposed(itemId);
+      }
     };
-  }, [provider, itemId, onDisposed]);
+  }, [provider, itemId]);
 
+  React.useEffect(() => {
+    const d = provider.onDidChanged((e) => {
+      if (e.type === "remove" && e.item === itemId) {
+        setItemId("");
+      }
+    });
+
+    return () => {
+      d.dispose();
+    };
+  }, [itemId]);
   React.useEffect(() => {
     const onUpdateOrder = (): void => {
       if (divRef.current) {
@@ -54,43 +67,43 @@ const ObserveNode: React.FC = () => {
   const [id, setId] = React.useState<string | null>(null);
   React.useEffect(() => {
     const d = provider.onDidChanged((e) => {
-      if (e.type === "add" && currentId.current === null && !e.barrier.isOpen()) {
+      if (
+        e.type === "add" &&
+        currentId.current === null &&
+        !e.barrier.isOpen()
+      ) {
         currentId.current = e.item;
         setId(e.item);
         e.barrier.open();
-      } else if (
-        e.type === "remove" &&
-        e.item === currentId.current
-      ) {
+      } else if (e.type === "remove" && e.item === currentId.current) {
         currentId.current = null;
         setId(null);
       }
     });
 
     const toRenderItem = popToRenderItem();
-    if(toRenderItem){
-        currentId.current = toRenderItem.id;
-        setId(toRenderItem.id);
-        toRenderItem.barrier.open();
+    if (toRenderItem) {
+      currentId.current = toRenderItem.id;
+      setId(toRenderItem.id);
+      toRenderItem.barrier.open();
     }
 
     return () => {
       d.dispose();
     };
   }, [provider]);
-  return <React.Fragment>{id && <BranchNode defaultItemId={id} />}</React.Fragment>;
+  return (
+    <React.Fragment>{id && <BranchNode defaultItemId={id} />}</React.Fragment>
+  );
 };
 
-
-export const BranchNode: React.FC<{ defaultItemId?: string }> = ({ defaultItemId = undefined }) => {
-    const [itemId, setItemId] = React.useState<string | undefined>(defaultItemId);
-    const onDisposed = React.useCallback(() => {
-        setItemId(undefined);
-    },[]);
+export const BranchNode: React.FC<{ defaultItemId?: string }> = ({
+  defaultItemId = undefined,
+}) => {
   return (
     <React.Fragment>
-      {itemId && <RenderNode  itemId={itemId} onDisposed={onDisposed}/>}
+      {defaultItemId && <RenderNode defaultItemId={defaultItemId} />}
       <ObserveNode />
     </React.Fragment>
   );
-}
+};

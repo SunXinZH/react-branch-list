@@ -1,7 +1,7 @@
 import React from "react";
 
 import { useBranchListContext } from "react-branch-list";
-import { Button, Stack } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 
 export const ListItem: React.FC<{ id: string; content: string }> = ({
   id,
@@ -9,8 +9,15 @@ export const ListItem: React.FC<{ id: string; content: string }> = ({
 }) => {
   const { provider } = useBranchListContext();
   return (
-    <Stack direction="row" sx={{ width: "100%" }}>
-      <div style={{ flex: 1 }}>{content}</div>
+    <Stack
+      direction="row"
+      sx={{ width: "100%", border: " 1px solid #black", marginBottom: "4px" }}
+    >
+      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <Typography style={{ alignSelf: "center", margin: "auto" }}>
+          {content}
+        </Typography>
+      </div>
       <Button
         onClick={() => {
           provider.remove(id);

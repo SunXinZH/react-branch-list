@@ -9,7 +9,7 @@ import { BranchNode } from "./node";
 interface IBranchListRef<T extends object> {
   provider: IBranchListProvider<T>;
 }
-function _BranchList<T extends object>(
+export function BranchList<T extends object>(
   props: IBranchListProps<T>,
   ref?: React.Ref<IBranchListRef<T>>
 ): React.ReactElement {
@@ -33,8 +33,6 @@ function _BranchList<T extends object>(
     });
 
     return () => {
-      console.log(">>>> 111 dispose");
-
       d.dispose();
     };
   }, []);
@@ -48,7 +46,6 @@ function _BranchList<T extends object>(
 
   const popToRenderItem = React.useCallback(() => {
     const item = toRenderItems.current.pop();
-    console.log(">>> popToRenderItem", item);
     return item;
   }, []);
 
@@ -81,5 +78,3 @@ function _BranchList<T extends object>(
     </BranchListContextProvider>
   );
 }
-
-export const BranchList = React.memo(_BranchList);

@@ -42,7 +42,7 @@ export const BranchListDemo: React.FC = () => {
             const len = provider.items.length;
 
             for (let index = 1; index < 11; index++) {
-              provider.push({
+              await provider.push({
                 id: `node-${len + index}`,
                 content: `content-${len + index}`,
               });

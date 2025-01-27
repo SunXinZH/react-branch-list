@@ -1,5 +1,5 @@
 import { IBranchListProvider, IBranchListItem } from "./../common/types";
-import { Barrier } from "vsc-base-kits";
+import { Barrier } from "vs-base-kits";
 
 export interface IToRenderItem {
   id: string;

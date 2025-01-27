@@ -1,4 +1,4 @@
-import { IDisposable, Event, Barrier } from "vsc-base-kits";
+import { IDisposable, Event, Barrier } from "vs-base-kits";
 
 export type IBranchListItem<T extends object = {}> = { id: string } & T;
 

@@ -1,6 +1,6 @@
 {
   "name": "react-branch-list",
-  "version": "1.1.1",
+  "version": "0.0.1",
   "description": "A React component for rendering lists based on tree structures. ",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -16,7 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "react": "^19.0.0",
-    "vsc-base-kits": "^1.0.12"
+    "vs-base-kits": "^0.0.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",

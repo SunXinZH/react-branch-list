@@ -1,6 +1,6 @@
 import { IBranchListItem, IBranchListProvider, IChangeEvent } from "./types";
 
-import { Disposable, Emitter, Event, Barrier, Throttler } from "vsc-base-kits";
+import { Disposable, Emitter, Event, Barrier, Throttler } from "vs-base-kits";
 
 export class BranchListProvider<T extends object>
   extends Disposable

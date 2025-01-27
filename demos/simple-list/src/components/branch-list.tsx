@@ -39,12 +39,12 @@ export const BranchListDemo: React.FC = () => {
           variant="contained"
           sx={{ flex: 1 }}
           onClick={async () => {
-            for (let index = 0; index < 10; index++) {
-              console.log(index);
-              const len = provider.items.length;
+            const len = provider.items.length;
+
+            for (let index = 1; index < 11; index++) {
               provider.push({
-                id: `node-${len + 1}`,
-                content: `content-${len + 1}`,
+                id: `node-${len + index}`,
+                content: `content-${len + index}`,
               });
             }
           }}

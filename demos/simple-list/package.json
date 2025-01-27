@@ -8,7 +8,7 @@
     "@mui/material": "^6.4.1",
     "cra-template-typescript": "1.2.0",
     "react": "^19.0.0",
-    "react-branch-list": "^1.0.19",
+    "react-branch-list": "^1.0.24",
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1",
     "vsc-base-kits": "^1.0.9",

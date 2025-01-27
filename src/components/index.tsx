@@ -33,6 +33,8 @@ function _BranchList<T extends object>(
     });
 
     return () => {
+      console.log(">>>> 111 dispose");
+
       d.dispose();
     };
   }, []);
@@ -45,7 +47,9 @@ function _BranchList<T extends object>(
   );
 
   const popToRenderItem = React.useCallback(() => {
-    return toRenderItems.current.pop();
+    const item = toRenderItems.current.pop();
+    console.log(">>> popToRenderItem", item);
+    return item;
   }, []);
 
   const value = React.useMemo(() => {

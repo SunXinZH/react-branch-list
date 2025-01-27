@@ -72,6 +72,7 @@ const ObserveNode: React.FC = () => {
         currentId.current === null &&
         !e.barrier.isOpen()
       ) {
+        d.dispose();
         currentId.current = e.item;
         setId(e.item);
         e.barrier.open();
@@ -80,6 +81,7 @@ const ObserveNode: React.FC = () => {
 
     const toRenderItem = popToRenderItem();
     if (toRenderItem) {
+      d.dispose();
       currentId.current = toRenderItem.id;
       setId(toRenderItem.id);
       toRenderItem.barrier.open();

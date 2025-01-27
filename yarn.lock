@@ -399,10 +399,10 @@ universalify@^2.0.0:
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-2.0.1.tgz#168efc2180964e6386d061e094df61afe239b18d"
   integrity sha512-gptHNQghINnc/vTGIk0SOFGFNXw7JVrlRUtConJRlvaw6DuX0wO5Jeko9sWrMBhh+PsYAZ7oXAiOnf/UKogyiw==
 
-vsc-base-kits@^1.0.11:
-  version "1.0.11"
-  resolved "https://registry.yarnpkg.com/vsc-base-kits/-/vsc-base-kits-1.0.11.tgz#6de6c1fc845679787db7846fe80a600d28ab54e5"
-  integrity sha512-yMt6AagMdz7kG7rZ3u8q6TtKxASV8bAwgA5wFKxsmT9UTS5Fo0iIWyDH8EjsF+AmsDfG8WkFrFVgvjhYKo8qLw==
+vsc-base-kits@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/vsc-base-kits/-/vsc-base-kits-1.0.12.tgz#52a5e9d7dccc0698d81ccdb59bf8895febd48798"
+  integrity sha512-n4BA/jJoilag1YWVupuTUutxqYQDtVuYN/1cR5JeYDuk1RjhDp2Msni+LAPxZr6d3D359ZkI03bo0jk1W60hgA==
   dependencies:
     "@rollup/plugin-commonjs" "^22.0.0"
     "@rollup/plugin-node-resolve" "^13.0.0"

@@ -7891,10 +7891,10 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-branch-list@^1.0.8:
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/react-branch-list/-/react-branch-list-1.0.8.tgz#4cd6809cdfebede9b5a57f286e5d8045eb36b00c"
-  integrity sha512-TuC1rk6JisSxeMfJNcrV4FrQpCHzgSfn+kREaDwKNU9fqm38S5vHx03JRaT/7g5Z4K7tNAmnqNL8Yiw6bGkP3g==
+react-branch-list@^1.0.17:
+  version "1.0.17"
+  resolved "https://registry.yarnpkg.com/react-branch-list/-/react-branch-list-1.0.17.tgz#c14cf97be1f5d7ff15183c2581e42f5562094db4"
+  integrity sha512-xywtnHDT3VdL6IZ+jNrBqodbnUR46aSkPeAhxPez0XS26Rm22M/FL/4wTX92or4aGyTH9KDdXr4kxx/K00KDhg==
   dependencies:
     react "^19.0.0"
     vsc-base-kits "^1.0.9"

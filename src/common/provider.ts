@@ -55,7 +55,6 @@ export class BranchListProvider<T extends object>
     this._items.push(...items);
     const newItems = items.map((v) => v.id);
     await this.waitRenderItems(newItems);
-
   }
 
   async insert(index: number, ...items: IBranchListItem<T>[]): Promise<void> {
@@ -150,13 +149,20 @@ export class BranchListProvider<T extends object>
 
   private async waitRenderItems(newItems: string[]): Promise<void> {
     for (const item of newItems) {
-        const barrier = new Barrier();
-        this._onDidChanged.fire({
-          type: "add",
-          item,
-          barrier
+      const p = new Promise<void>((resolve) => {
+        const d = this.onItemRendered((e) => {
+          if (e === item) {
+            d.dispose();
+            resolve();
+          }
         });
-        await barrier.wait();
-      }
+      });
+      this._onDidChanged.fire({
+        type: "add",
+        item,
+        barrier: new Barrier(),
+      });
+      await p;
+    }
   }
 }

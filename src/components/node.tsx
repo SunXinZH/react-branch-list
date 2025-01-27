@@ -7,13 +7,13 @@ const RenderNode: React.FC<{ itemId: string; onDisposed: ()=> void }> = ({ itemI
   const content = React.useMemo(() => {
     const item = provider.get(itemId);
     return item ? onRenderItem(item) : <div />;
-  }, [itemId, onRenderItem]);
+  }, [itemId, onRenderItem, provider]);
 
   React.useEffect(() => {
-    if (itemId && content) {
+    if (itemId) {
       provider.notifyItemRendered(itemId);
     }
-  }, [itemId, provider, content]);
+  }, [itemId, provider]);
 
   React.useEffect(() => {
     return () => {
@@ -89,7 +89,7 @@ export const BranchNode: React.FC<{ defaultItemId?: string }> = ({ defaultItemId
     },[]);
   return (
     <React.Fragment>
-      {itemId && <RenderNode itemId={itemId} onDisposed={onDisposed}/>}
+      {itemId && <RenderNode  itemId={itemId} onDisposed={onDisposed}/>}
       <ObserveNode />
     </React.Fragment>
   );

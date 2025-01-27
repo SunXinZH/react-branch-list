@@ -1,15 +1,22 @@
 import React from "react";
 
 import { Button, Stack } from "@mui/material";
-import { BranchList, BranchListProvider } from "react-branch-list";
+import { BranchList, BranchListProvider, IBranchListItem } from "react-branch-list";
 import { ListItem } from "./list-item";
+import { DisposableStore } from "vsc-base-kits";
 
 export const BranchListDemo: React.FC = () => {
   const provider = React.useMemo(() => {
     return new BranchListProvider<{ content: string }>();
   }, []);
+
+  const onRenderItem =React.useCallback((item: IBranchListItem<{content: string}>)=>{
+    return <ListItem id={item.id} content={item.content} />;
+  },[])
   return (
-    <Stack direction="column" sx={{ flex: 1 }}>
+    <Stack direction="column" sx={{ flex: 1,".branch-list":{
+      flex:1
+    } }}>
       <Stack direction="row" sx={{ width: "100%", overflow: "hidden" }}>
         <Button
           onClick={() => {
@@ -31,11 +38,10 @@ export const BranchListDemo: React.FC = () => {
         </Button>
       </Stack>
       <BranchList
+        className="branch-list"
         direction="column"
         provider={provider}
-        onRenderItem={(item) => {
-          return <ListItem id={item.id} content={item.content} />;
-        }}
+        onRenderItem={onRenderItem}
       />
     </Stack>
   );

@@ -9,8 +9,7 @@ import { BranchNode } from "./node";
 interface IBranchListRef<T extends object> {
   provider: IBranchListProvider<T>;
 }
-
-export function BranchList<T extends object>(
+function _BranchList<T extends object>(
   props: IBranchListProps<T>,
   ref?: React.Ref<IBranchListRef<T>>
 ): React.ReactElement {
@@ -48,14 +47,16 @@ export function BranchList<T extends object>(
   const popToRenderItem = React.useCallback(() => {
     return toRenderItems.current.pop();
   }, []);
+
+  const value = React.useMemo(() => {
+    return {
+      popToRenderItem,
+      provider: providerRef.current,
+      onRenderItem: props.onRenderItem,
+    };
+  }, [popToRenderItem, props.onRenderItem]);
   return (
-    <BranchListContextProvider
-      value={{
-        popToRenderItem,
-        provider: providerRef.current,
-        onRenderItem: props.onRenderItem,
-      }}
-    >
+    <BranchListContextProvider value={value}>
       <div
         className={`branch-list-root ${props.className}`}
         style={{
@@ -76,3 +77,5 @@ export function BranchList<T extends object>(
     </BranchListContextProvider>
   );
 }
+
+export const BranchList = React.memo(_BranchList);

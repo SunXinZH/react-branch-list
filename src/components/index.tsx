@@ -12,8 +12,8 @@ interface IBranchListRef<T extends object> {
 
 export function BranchList<T extends object>(
   props: IBranchListProps<T>,
-  ref: React.Ref<IBranchListRef<T>>
-) {
+  ref?: React.Ref<IBranchListRef<T>>
+): React.ReactElement {
   const providerRef = React.useRef<IBranchListProvider<T>>(
     props.provider || new BranchListProvider<T>(props.defaultItems || [])
   );

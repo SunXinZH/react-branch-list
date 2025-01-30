@@ -54,9 +54,9 @@ const _BranchList = <T extends object>(
     return {
       popToRenderItem,
       provider: providerRef.current,
-      onRenderItem: props.onRenderItem,
+      renderComponent: props.renderComponent,
     };
-  }, [popToRenderItem, props.onRenderItem]);
+  }, [popToRenderItem, props.renderComponent]);
   return (
     <BranchListContextProvider value={value}>
       <div

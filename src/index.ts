@@ -6,4 +6,4 @@ export type {
 export { BranchListProvider } from "./common/provider";
 export type { IBranchListRef } from "./components";
 export { BranchList } from "./components";
-export { useBranchListContext } from "./components/context";
+export { useBranchListProvider } from "./components/context";

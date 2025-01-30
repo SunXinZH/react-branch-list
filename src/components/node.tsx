@@ -3,12 +3,16 @@ import { useBranchListContext } from "./context";
 
 const RenderNode: React.FC<{ defaultItemId: string }> = ({ defaultItemId }) => {
   const [itemId, setItemId] = React.useState<string>(defaultItemId);
-  const { provider, onRenderItem } = useBranchListContext();
+  const { provider, renderComponent: Component } = useBranchListContext();
   const divRef = React.useRef<HTMLDivElement>(null);
   const content = React.useMemo(() => {
     const item = provider.get(itemId);
-    return item ? onRenderItem(item) : <div className="discarded-node" />;
-  }, [itemId, onRenderItem, provider]);
+    return item ? (
+      <Component item={item} />
+    ) : (
+      <div className="discarded-node" />
+    );
+  }, [Component, itemId, provider]);
 
   React.useEffect(() => {
     if (itemId) {

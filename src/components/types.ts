@@ -9,7 +9,7 @@ export interface IToRenderItem {
 export interface IBranchListContext<T extends object = {}> {
   provider: IBranchListProvider<T>;
   popToRenderItem: () => IToRenderItem | undefined;
-  onRenderItem: (item: IBranchListItem<T>) => React.ReactElement;
+  renderComponent: React.FunctionComponent<{ item: IBranchListItem<any> }>;
 }
 
 export interface IBranchListProps<T extends object = {}> {
@@ -17,5 +17,5 @@ export interface IBranchListProps<T extends object = {}> {
   className?: string;
   provider?: IBranchListContext<T>["provider"];
   defaultItems?: IBranchListItem<T>[];
-  onRenderItem: IBranchListContext<T>["onRenderItem"];
+  renderComponent: IBranchListContext<T>["renderComponent"];
 }

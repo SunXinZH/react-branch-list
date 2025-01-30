@@ -21,9 +21,7 @@ However, when items are added, removed, or reordered, React reconciles the entir
 ```tsx
 import React from "react";
 
-import { Button, Stack, Divider } from "@mui/material";
 import { BranchList, IBranchListRef, IBranchListItem } from "react-branch-list";
-import { ListItem } from "./list-item";
 
 type ContentType = { content: string };
 

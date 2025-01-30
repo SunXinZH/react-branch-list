@@ -9,7 +9,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "node ./scripts/clean.js && rollup -c"
+    "build": "node ./scripts/clean.js && rollup -c",
+    "publish-npm": "yarn build && npm publish"
   },
   "repository": "https://github.com/SunXinZH/react-branch-list.git",
   "author": "SunXin <xin.sun.zh@gmail.com>",

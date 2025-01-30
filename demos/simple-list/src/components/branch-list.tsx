@@ -5,15 +5,16 @@ import { BranchList, IBranchListRef, IBranchListItem } from "react-branch-list";
 import { ListItem } from "./list-item";
 
 type ContentType = { content: string };
+
+const ItemComponent: React.FC<{ item: IBranchListItem<ContentType> }> = ({
+  item,
+}) => {
+  return <ListItem id={item.id} content={item.content} />;
+};
+
 export const BranchListDemo: React.FC = () => {
   const provider = React.useRef<IBranchListRef<ContentType> | null>(null);
 
-  const onRenderItem = React.useCallback(
-    (item: IBranchListItem<ContentType>) => {
-      return <ListItem id={item.id} content={item.content} />;
-    },
-    []
-  );
   return (
     <Stack
       direction="column"
@@ -61,7 +62,7 @@ export const BranchListDemo: React.FC = () => {
         ref={provider}
         className="branch-list"
         direction="column"
-        onRenderItem={onRenderItem}
+        renderComponent={ItemComponent}
         defaultItems={new Array(5).fill(1).map((_, index) => {
           return {
             id: `node-${index}`,

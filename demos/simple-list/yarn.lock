@@ -7903,13 +7903,13 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-branch-list@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/react-branch-list/-/react-branch-list-1.1.1.tgz#39e18339d387401be28bc2618f097a938ccf5b15"
-  integrity sha512-w7PTclSb2N3gkF6FYbmwes1boEtI5WCPeKHbY6klSNvL+zUzFc9TCGPBaNP/IVAkUgH9WNOUKnX3XPlo6nbtNA==
+react-branch-list@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-branch-list/-/react-branch-list-0.0.2.tgz#14829bd8ba6afeb5a29edac1aeaabfbff74f121f"
+  integrity sha512-uzS+B1Iq2u+MP36WqMBrO0JnUhISJ/aUV5ddHvs2Zc7zMnf/QwoClgH/3ma5YnvudL35+NeSCUi3+ALpn4n9lg==
   dependencies:
     react "^19.0.0"
-    vsc-base-kits "^1.0.12"
+    vs-base-kits "^0.0.1"
 
 react-dev-utils@^12.0.1:
   version "12.0.1"
@@ -9466,10 +9466,10 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
-vsc-base-kits@^1.0.12:
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/vsc-base-kits/-/vsc-base-kits-1.0.12.tgz#52a5e9d7dccc0698d81ccdb59bf8895febd48798"
-  integrity sha512-n4BA/jJoilag1YWVupuTUutxqYQDtVuYN/1cR5JeYDuk1RjhDp2Msni+LAPxZr6d3D359ZkI03bo0jk1W60hgA==
+vs-base-kits@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/vs-base-kits/-/vs-base-kits-0.0.1.tgz#5b1359199bca20cec51bcbd59871b9bbdc6df13b"
+  integrity sha512-PeG5Y9hAfyFSeARq/XoPK9ycpmbEDx8wjr/9vEkrEgdl26wL6cRPubay/7Gvy1PYq0NEWtuUxR+xBK2hJwn08w==
   dependencies:
     "@rollup/plugin-commonjs" "^22.0.0"
     "@rollup/plugin-node-resolve" "^13.0.0"

@@ -1,13 +1,13 @@
 import React from "react";
 
-import { useBranchListContext } from "react-branch-list";
+import { useBranchListProvider } from "react-branch-list";
 import { Button, Stack, Typography } from "@mui/material";
 
 export const ListItem: React.FC<{ id: string; content: string }> = ({
   id,
   content,
 }) => {
-  const { provider } = useBranchListContext();
+  const provider = useBranchListProvider();
   return (
     <Stack
       direction="row"

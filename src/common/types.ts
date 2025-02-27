@@ -1,4 +1,5 @@
 import { IDisposable, Event, Barrier } from "vs-base-kits";
+import { IToRenderItem } from "../components/types";
 
 export type IBranchListItem<T extends object = {}> = { id: string } & T;
 
@@ -13,14 +14,9 @@ interface IRemoveEvent {
 }
 export type IChangeEvent = IAddEvent | IRemoveEvent;
 
-export interface IBranchListProvider<T extends object = {}>
+export interface IBranchListController<T extends object = {}>
   extends IDisposable {
-  readonly onDidChanged: Event<IChangeEvent>;
-  readonly onItemRendered: Event<string>;
-  readonly onItemDisposed: Event<string>;
-  readonly onPositionChanged: Event<void>;
   readonly items: IBranchListItem<T>[];
-
   push(...items: IBranchListItem<T>[]): Promise<void>;
   insert(index: number, ...items: IBranchListItem<T>[]): Promise<void>;
   remove(id: string): Promise<void>;
@@ -28,6 +24,15 @@ export interface IBranchListProvider<T extends object = {}>
   clear(): Promise<void>;
   indexOf(id: string): number;
   get(id: string): IBranchListItem<T> | undefined;
+}
+
+export interface IBranchListProvider<T extends object = {}>
+  extends IBranchListController<T> {
+  readonly onDidChanged: Event<IChangeEvent>;
+  readonly onItemRendered: Event<string>;
+  readonly onItemDisposed: Event<string>;
+  readonly onPositionChanged: Event<void>;
+  readonly toRenderItems: IToRenderItem[];
 
   notifyItemRendered(id: string): void;
   notifyItemDisposed(id: string): void;

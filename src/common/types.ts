@@ -28,12 +28,14 @@ export interface IBranchListController<T extends object = {}>
 
 export interface IBranchListProvider<T extends object = {}>
   extends IBranchListController<T> {
+  readonly toRenderItems: IToRenderItem[];
+
   readonly onDidChanged: Event<IChangeEvent>;
   readonly onItemRendered: Event<string>;
   readonly onItemDisposed: Event<string>;
   readonly onPositionChanged: Event<void>;
-  readonly toRenderItems: IToRenderItem[];
 
   notifyItemRendered(id: string): void;
   notifyItemDisposed(id: string): void;
+  popToRenderItem(): IToRenderItem | undefined;
 }

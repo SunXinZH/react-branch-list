@@ -1,19 +1,20 @@
+import { IToRenderItem } from "../components/types";
 import { IBranchListItem, IBranchListProvider, IChangeEvent } from "./types";
 
-import { Disposable, Emitter, Event, Barrier, Throttler } from "vs-base-kits";
+import { Disposable, Emitter, Event, Barrier, Sequencer } from "vs-base-kits";
 
 export class BranchListProvider<T extends object>
   extends Disposable
   implements IBranchListProvider<T>
 {
-  private _initPromise: Promise<void[]> | undefined;
   private _items: IBranchListItem<T>[] = [];
+  private _toRenderItems: IToRenderItem[] = []
   private _onDidChanged = this._register(new Emitter<IChangeEvent>());
   private _onPositionChanged = this._register(new Emitter<void>());
   private _onItemRendered = this._register(new Emitter<string>());
   private _onItemDisposed = this._register(new Emitter<string>());
 
-  private _throttler: Throttler = new Throttler();
+  private _sequencer: Sequencer = new Sequencer();
   onDidChanged: Event<IChangeEvent> = this._onDidChanged.event;
   onPositionChanged: Event<void> = this._onPositionChanged.event;
   onItemRendered: Event<string> = this._onItemRendered.event;
@@ -22,24 +23,18 @@ export class BranchListProvider<T extends object>
   get items(): IBranchListItem<T>[] {
     return this._items;
   }
+
+  get toRenderItems(): IToRenderItem[] {
+    return this._toRenderItems;
+  }
   constructor(defaultItems: IBranchListItem<T>[] = []) {
     super();
     this._items = defaultItems;
     if (this.items.length > 0) {
       const itemsId = defaultItems.map((v) => v.id);
-
-      this._initPromise = Promise.all(
-        itemsId.map((id) => {
-          return new Promise<void>((resolve) => {
-            const d = this.onItemRendered((e) => {
-              if (e === id) {
-                d.dispose();
-                resolve();
-              }
-            });
-          });
-        })
-      );
+      this._sequencer.queue(async ()=>{
+        await this.waitRenderItems(itemsId)
+      })
     }
   }
 
@@ -50,10 +45,12 @@ export class BranchListProvider<T extends object>
   get(id: string): IBranchListItem<T> | undefined {
     return this._items.find((v) => v.id === id);
   }
-  async push(...items: IBranchListItem<T>[]): Promise<void> {
-    await this.awaitInit();
 
-    await this._throttler.queue(async () => {
+  popToRenderItem(): IToRenderItem | undefined {
+    return this._toRenderItems.pop();
+  }
+  async push(...items: IBranchListItem<T>[]): Promise<void> {
+    await this._sequencer.queue(async () => {
       this._items.push(...items);
       const newItems = items.map((v) => v.id);
       await this.waitRenderItems(newItems);
@@ -61,13 +58,11 @@ export class BranchListProvider<T extends object>
   }
 
   async insert(index: number, ...items: IBranchListItem<T>[]): Promise<void> {
-    await this.awaitInit();
-
     if (index < 0) {
       return;
     }
 
-    await this._throttler.queue(async () => {
+    await this._sequencer.queue(async () => {
       this._items.splice(index, 0, ...items);
       const newItems = items.map((v) => v.id);
       await this.waitRenderItems(newItems);
@@ -77,9 +72,7 @@ export class BranchListProvider<T extends object>
   }
 
   async remove(id: string): Promise<void> {
-    await this.awaitInit();
-
-    await this._throttler.queue(async () => {
+    await this._sequencer.queue(async () => {
       const index = this._items.findIndex((item) => item.id === id);
       if (index !== -1) {
         const p = new Promise<void>((resolve) => {
@@ -102,9 +95,7 @@ export class BranchListProvider<T extends object>
   }
 
   async move(id: string, index: number): Promise<void> {
-    await this.awaitInit();
-
-    await this._throttler.queue(async () => {
+    await this._sequencer.queue(async () => {
       const currentIndex = this._items.findIndex((item) => item.id === id);
       if (currentIndex !== -1) {
         const item = this._items.splice(currentIndex, 1)[0];
@@ -115,9 +106,7 @@ export class BranchListProvider<T extends object>
   }
 
   async clear(): Promise<void> {
-    await this.awaitInit();
-
-    await this._throttler.queue(async () => {
+    await this._sequencer.queue(async () => {
       const prevItems = this._items.map((v) => v.id);
       this._items = [];
 
@@ -152,11 +141,6 @@ export class BranchListProvider<T extends object>
     this._onItemDisposed.fire(id);
   }
 
-  private async awaitInit(): Promise<void> {
-    if (this._initPromise) {
-      await this._initPromise;
-    }
-  }
 
   private async waitRenderItems(newItems: string[]): Promise<void> {
     for (const item of newItems) {

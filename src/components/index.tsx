@@ -1,62 +1,37 @@
 import React from "react";
-import { IBranchListProvider } from "./../common/types";
+import { IBranchListProvider, IBranchListController } from "./../common/types";
 import { BranchListProvider } from "./../common/provider";
 
-import { IBranchListProps, IToRenderItem } from "./types";
+import { IBranchListProps } from "./types";
 import { BranchListContextProvider } from "./context";
 import { BranchNode } from "./node";
 
 export interface IBranchListRef<T extends object = {}> {
-  provider: IBranchListProvider<T>;
+  controller: IBranchListController<T>;
 }
 
 const _BranchList = <T extends object>(
   props: IBranchListProps<T>,
   ref: React.Ref<IBranchListRef<T>>
 ) => {
-  const providerRef = React.useRef<IBranchListProvider<T>>(
+  const [provider] = React.useState<IBranchListProvider<T>>(
     props.provider || new BranchListProvider<T>(props.defaultItems || [])
   );
-  const toRenderItems = React.useRef<IToRenderItem[]>([]);
 
-  React.useEffect(() => {
-    const d = providerRef.current.onDidChanged((e) => {
-      if (e.type === "add") {
-        setTimeout(() => {
-          if (!e.barrier.isOpen()) {
-            toRenderItems.current.push({
-              id: e.item,
-              barrier: e.barrier,
-            });
-          }
-        }, 0);
-      }
-    });
-
-    return () => {
-      d.dispose();
-    };
-  }, []);
   React.useImperativeHandle(
     ref,
     () => ({
-      provider: providerRef.current,
+      controller: provider,
     }),
-    [providerRef]
+    [provider]
   );
-
-  const popToRenderItem = React.useCallback(() => {
-    const item = toRenderItems.current.pop();
-    return item;
-  }, []);
 
   const value = React.useMemo(() => {
     return {
-      popToRenderItem,
-      provider: providerRef.current,
+      provider,
       renderComponent: props.renderComponent,
     };
-  }, [popToRenderItem, props.renderComponent]);
+  }, [props.renderComponent, provider]);
   return (
     <BranchListContextProvider value={value}>
       <div
@@ -66,11 +41,11 @@ const _BranchList = <T extends object>(
           flexDirection: props.direction,
         }}
       >
-        {providerRef.current.items.length === 0 ? (
+        {provider.items.length === 0 ? (
           <BranchNode />
         ) : (
           <React.Fragment>
-            {providerRef.current.items.map((item) => {
+            {provider.items.map((item) => {
               return <BranchNode defaultItemId={item.id} />;
             })}
           </React.Fragment>

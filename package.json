@@ -17,7 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "react": "^19.0.0",
-    "vs-base-kits": "^0.0.1"
+    "vs-base-kits": "^1.0.1"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.0",

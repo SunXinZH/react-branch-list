@@ -8,7 +8,6 @@ export interface IToRenderItem {
 
 export interface IBranchListContext<T extends object = {}> {
   provider: IBranchListProvider<T>;
-  popToRenderItem: () => IToRenderItem | undefined;
   renderComponent: React.FunctionComponent<{ item: IBranchListItem<any> }>;
 }
 

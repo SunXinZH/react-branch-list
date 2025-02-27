@@ -66,7 +66,7 @@ const RenderNode: React.FC<{ defaultItemId: string }> = ({ defaultItemId }) => {
   );
 };
 const ObserveNode: React.FC = () => {
-  const { provider, popToRenderItem } = useBranchListContext();
+  const { provider } = useBranchListContext();
   const currentId = React.useRef<string | null>(null);
   const [id, setId] = React.useState<string | null>(null);
   React.useEffect(() => {
@@ -83,7 +83,7 @@ const ObserveNode: React.FC = () => {
       }
     });
 
-    const toRenderItem = popToRenderItem();
+    const toRenderItem = provider.popToRenderItem();
     if (toRenderItem) {
       d.dispose();
       currentId.current = toRenderItem.id;
@@ -94,7 +94,7 @@ const ObserveNode: React.FC = () => {
     return () => {
       d.dispose();
     };
-  }, [popToRenderItem, provider]);
+  }, [provider]);
   return (
     <React.Fragment>{id && <BranchNode defaultItemId={id} />}</React.Fragment>
   );

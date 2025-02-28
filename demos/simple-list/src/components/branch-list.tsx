@@ -6,8 +6,8 @@ import { ListItem } from './list-item';
 
 type ContentType = { content: string };
 
-const ItemComponent: React.FC<{ item: IBranchListItem<ContentType> }> = ({ item }) => {
-  return <ListItem id={item.id} content={item.content} />;
+const ItemComponent: React.FC<IBranchListItem<ContentType>> = ({ id, content }) => {
+  return <ListItem id={id} content={content} />;
 };
 
 export const BranchListDemo: React.FC = () => {
@@ -29,10 +29,10 @@ export const BranchListDemo: React.FC = () => {
           variant="contained"
           sx={{ flex: 1 }}
           onClick={async () => {
-            const len = provider.current?.provider.items.length ?? 0;
+            const len = provider.current?.controller.items.length ?? 0;
 
             for (let index = 1; index < 11; index++) {
-              await provider.current?.provider.push({
+              await provider.current?.controller.push({
                 id: `node-${len + index}`,
                 content: `content-${len + index}`,
               });
@@ -45,14 +45,14 @@ export const BranchListDemo: React.FC = () => {
           sx={{ flex: 1 }}
           variant="contained"
           onClick={() => {
-            provider.current?.provider.clear();
+            provider.current?.controller.clear();
           }}
         >
           Clear
         </Button>
       </Stack>
       <Divider />
-      <BranchList
+      <BranchList<ContentType>
         ref={provider}
         className="branch-list"
         direction="column"

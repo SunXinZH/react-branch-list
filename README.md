@@ -27,8 +27,8 @@ import { BranchList, IBranchListRef, IBranchListItem } from 'react-branch-list';
 
 type ContentType = { content: string };
 
-const ItemComponent: React.FC<{ item: IBranchListItem<ContentType> }> = ({ item }) => {
-  return <div data-id={item.id}>{item.content}</div>;
+const ItemComponent: React.FC<IBranchListItem<ContentType>> = ({ id, content }) => {
+  return <div data-id={id}>{content}</div>;
 };
 
 export const BranchListDemo: React.FC = () => {

@@ -1,10 +1,4 @@
-import { IBranchListProvider, IBranchListItem } from "./../common/types";
-import { Barrier } from "vs-base-kits";
-
-export interface IToRenderItem {
-  id: string;
-  barrier: Barrier;
-}
+import { IBranchListProvider, IBranchListItem } from './../common/types';
 
 export interface IBranchListContext<T extends object = {}> {
   provider: IBranchListProvider<T>;
@@ -12,9 +6,9 @@ export interface IBranchListContext<T extends object = {}> {
 }
 
 export interface IBranchListProps<T extends object = {}> {
-  direction: "column" | "row";
+  direction: 'column' | 'row';
   className?: string;
-  provider?: IBranchListContext<T>["provider"];
+  provider?: IBranchListContext<T>['provider'];
   defaultItems?: IBranchListItem<T>[];
-  renderComponent: IBranchListContext<T>["renderComponent"];
+  renderComponent: IBranchListContext<T>['renderComponent'];
 }

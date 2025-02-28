@@ -1,7 +1,7 @@
 import React from "react";
 import { useBranchListContext } from "./context";
 
-const RenderNode: React.FC<{ defaultItemId: string }> = ({ defaultItemId }) => {
+const RenderNode: React.FC<{ defaultItemId: string }>      = ({ defaultItemId }) => {
   const [itemId, setItemId] = React.useState<string>(defaultItemId);
   const { provider, renderComponent: Component } = useBranchListContext();
   const divRef = React.useRef<HTMLDivElement>(null);

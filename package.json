@@ -10,12 +10,18 @@
   ],
   "scripts": {
     "build": "node ./scripts/clean.js && rollup -c",
-    "publish-npm": "yarn build && npm publish"
+    "publish-npm": "yarn build && npm publish",
+    "lint": "eslint . --ext .ts,.tsx"
   },
   "repository": "https://github.com/SunXinZH/react-branch-list.git",
   "author": "SunXin <xin.sun.zh@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.25.0",
+    "@typescript-eslint/parser": "^8.25.0",
+    "eslint": "^9.21.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "prettier": "^3.5.2",
     "react": "^19.0.0",
     "vs-base-kits": "^1.0.1"
   },

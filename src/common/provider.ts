@@ -1,14 +1,10 @@
-import { IToRenderItem } from "../components/types";
-import { IBranchListItem, IBranchListProvider, IChangeEvent } from "./types";
+import { IBranchListItem, IBranchListProvider, IChangeEvent, IWaitingRenderItem } from './types';
 
-import { Disposable, Emitter, Event, Barrier, Sequencer } from "vs-base-kits";
+import { Disposable, Emitter, Event, Barrier, Sequencer } from 'vs-base-kits';
 
-export class BranchListProvider<T extends object>
-  extends Disposable
-  implements IBranchListProvider<T>
-{
+export class BranchListProvider<T extends object> extends Disposable implements IBranchListProvider<T> {
   private _items: IBranchListItem<T>[] = [];
-  private _toRenderItems: IToRenderItem[] = []
+  private _toRenderItems: IWaitingRenderItem[] = [];
   private _onDidChanged = this._register(new Emitter<IChangeEvent>());
   private _onPositionChanged = this._register(new Emitter<void>());
   private _onItemRendered = this._register(new Emitter<string>());
@@ -24,7 +20,7 @@ export class BranchListProvider<T extends object>
     return this._items;
   }
 
-  get toRenderItems(): IToRenderItem[] {
+  get toRenderItems(): IWaitingRenderItem[] {
     return this._toRenderItems;
   }
   constructor(defaultItems: IBranchListItem<T>[] = []) {
@@ -32,9 +28,9 @@ export class BranchListProvider<T extends object>
     this._items = defaultItems;
     if (this.items.length > 0) {
       const itemsId = defaultItems.map((v) => v.id);
-      this._sequencer.queue(async ()=>{
-        await this.waitRenderItems(itemsId)
-      })
+      this._sequencer.queue(async () => {
+        await this.waitRenderItems(itemsId);
+      });
     }
   }
 
@@ -46,7 +42,7 @@ export class BranchListProvider<T extends object>
     return this._items.find((v) => v.id === id);
   }
 
-  popToRenderItem(): IToRenderItem | undefined {
+  popToRenderItem(): IWaitingRenderItem | undefined {
     return this._toRenderItems.pop();
   }
   async push(...items: IBranchListItem<T>[]): Promise<void> {
@@ -85,7 +81,7 @@ export class BranchListProvider<T extends object>
         });
         this._items.splice(index, 1);
         this._onDidChanged.fire({
-          type: "remove",
+          type: 'remove',
           item: id,
         });
         this._onPositionChanged.fire();
@@ -120,12 +116,12 @@ export class BranchListProvider<T extends object>
               }
             });
           });
-        })
+        }),
       );
 
       for (const item of prevItems) {
         this._onDidChanged.fire({
-          type: "remove",
+          type: 'remove',
           item,
         });
       }
@@ -141,7 +137,6 @@ export class BranchListProvider<T extends object>
     this._onItemDisposed.fire(id);
   }
 
-
   private async waitRenderItems(newItems: string[]): Promise<void> {
     for (const item of newItems) {
       const p = new Promise<void>((resolve) => {
@@ -153,7 +148,7 @@ export class BranchListProvider<T extends object>
         });
       });
       this._onDidChanged.fire({
-        type: "add",
+        type: 'add',
         item,
         barrier: new Barrier(),
       });

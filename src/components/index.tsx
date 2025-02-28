@@ -1,21 +1,18 @@
-import React from "react";
-import { IBranchListProvider, IBranchListController } from "./../common/types";
-import { BranchListProvider } from "./../common/provider";
+import React from 'react';
+import { IBranchListProvider, IBranchListController } from './../common/types';
+import { BranchListProvider } from './../common/provider';
 
-import { IBranchListProps } from "./types";
-import { BranchListContextProvider } from "./context";
-import { BranchNode } from "./node";
+import { IBranchListProps } from './types';
+import { BranchListContextProvider } from './context';
+import { BranchNode } from './node';
 
 export interface IBranchListRef<T extends object = {}> {
   controller: IBranchListController<T>;
 }
 
-const _BranchList = <T extends object>(
-  props: IBranchListProps<T>,
-  ref: React.Ref<IBranchListRef<T>>
-) => {
+const _BranchList = <T extends object>(props: IBranchListProps<T>, ref: React.Ref<IBranchListRef<T>>) => {
   const [provider] = React.useState<IBranchListProvider<T>>(
-    props.provider || new BranchListProvider<T>(props.defaultItems || [])
+    props.provider || new BranchListProvider<T>(props.defaultItems || []),
   );
 
   React.useImperativeHandle(
@@ -23,7 +20,7 @@ const _BranchList = <T extends object>(
     () => ({
       controller: provider,
     }),
-    [provider]
+    [provider],
   );
 
   const value = React.useMemo(() => {
@@ -37,7 +34,7 @@ const _BranchList = <T extends object>(
       <div
         className={`branch-list-root ${props.className}`}
         style={{
-          display: "flex",
+          display: 'flex',
           flexDirection: props.direction,
         }}
       >
@@ -55,10 +52,8 @@ const _BranchList = <T extends object>(
   );
 };
 
-export const BranchList = React.forwardRef(_BranchList) as unknown as <
-  T extends object
->(
+export const BranchList = React.forwardRef(_BranchList) as unknown as <T extends object>(
   props: IBranchListProps<T> & {
     ref?: React.Ref<IBranchListRef<T>>;
-  }
+  },
 ) => React.ReactElement;

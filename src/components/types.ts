@@ -1,11 +1,11 @@
 import { IBranchListProvider, IBranchListItem } from './../common/types';
 
-export interface IBranchListContext<T extends object = {}> {
+export interface IBranchListContext<T extends object = object> {
   provider: IBranchListProvider<T>;
-  renderComponent: React.FunctionComponent<{ item: IBranchListItem<any> }>;
+  renderComponent: React.FunctionComponent<{ item: IBranchListItem<object> }>;
 }
 
-export interface IBranchListProps<T extends object = {}> {
+export interface IBranchListProps<T extends object = object> {
   direction: 'column' | 'row';
   className?: string;
   provider?: IBranchListContext<T>['provider'];

@@ -2,8 +2,8 @@ import React from 'react';
 import { IBranchListContext } from './types';
 import { IBranchListProvider } from './../common/types';
 
-export const BranchListContext = React.createContext<IBranchListContext<any>>({
-  provider: null as any,
+export const BranchListContext = React.createContext<IBranchListContext>({
+  provider: null as unknown as IBranchListProvider,
   renderComponent: ({ item }) => <div>{item.id}</div>,
 });
 

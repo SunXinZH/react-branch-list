@@ -1,6 +1,6 @@
 import { IDisposable, Event, Barrier } from 'vs-base-kits';
 
-export type IBranchListItem<T extends object = {}> = { id: string } & T;
+export type IBranchListItem<T extends object = object> = { id: string } & T;
 
 interface IAddEvent {
   readonly type: 'add';
@@ -18,7 +18,7 @@ export interface IWaitingRenderItem {
   barrier: Barrier;
 }
 
-export interface IBranchListController<T extends object = {}> extends IDisposable {
+export interface IBranchListController<T extends object = object> extends IDisposable {
   readonly items: IBranchListItem<T>[];
   push(...items: IBranchListItem<T>[]): Promise<void>;
   insert(index: number, ...items: IBranchListItem<T>[]): Promise<void>;
@@ -29,7 +29,7 @@ export interface IBranchListController<T extends object = {}> extends IDisposabl
   get(id: string): IBranchListItem<T> | undefined;
 }
 
-export interface IBranchListProvider<T extends object = {}> extends IBranchListController<T> {
+export interface IBranchListProvider<T extends object = object> extends IBranchListController<T> {
   readonly toRenderItems: IWaitingRenderItem[];
 
   readonly onDidChanged: Event<IChangeEvent>;

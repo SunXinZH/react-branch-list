@@ -6,7 +6,7 @@ import { IBranchListProps } from './types';
 import { BranchListContextProvider } from './context';
 import { BranchNode } from './node';
 
-export interface IBranchListRef<T extends object = {}> {
+export interface IBranchListRef<T extends object = object> {
   controller: IBranchListController<T>;
 }
 
@@ -43,7 +43,7 @@ const _BranchList = <T extends object>(props: IBranchListProps<T>, ref: React.Re
         ) : (
           <React.Fragment>
             {provider.items.map((item) => {
-              return <BranchNode defaultItemId={item.id} />;
+              return <BranchNode key={item.id} defaultItemId={item.id} />;
             })}
           </React.Fragment>
         )}

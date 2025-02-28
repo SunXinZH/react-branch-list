@@ -1,14 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import { Button, Stack, Divider } from "@mui/material";
-import { BranchList, IBranchListRef, IBranchListItem } from "react-branch-list";
-import { ListItem } from "./list-item";
+import { Button, Stack, Divider } from '@mui/material';
+import { BranchList, IBranchListRef, IBranchListItem } from 'react-branch-list';
+import { ListItem } from './list-item';
 
 type ContentType = { content: string };
 
-const ItemComponent: React.FC<{ item: IBranchListItem<ContentType> }> = ({
-  item,
-}) => {
+const ItemComponent: React.FC<{ item: IBranchListItem<ContentType> }> = ({ item }) => {
   return <ListItem id={item.id} content={item.content} />;
 };
 
@@ -20,17 +18,13 @@ export const BranchListDemo: React.FC = () => {
       direction="column"
       sx={{
         flex: 1,
-        width: "300px",
-        ".branch-list": {
+        width: '300px',
+        '.branch-list': {
           flex: 1,
         },
       }}
     >
-      <Stack
-        direction="row"
-        spacing={2}
-        sx={{ width: "100%", overflow: "hidden", padding: "4px" }}
-      >
+      <Stack direction="row" spacing={2} sx={{ width: '100%', overflow: 'hidden', padding: '4px' }}>
         <Button
           variant="contained"
           sx={{ flex: 1 }}

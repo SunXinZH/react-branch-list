@@ -11,7 +11,9 @@
   "scripts": {
     "build": "node ./scripts/clean.js && rollup -c",
     "publish-npm": "yarn build && npm publish",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint .",
+    "prettier": "prettier .",
+    "prettier:fix": "prettier . --write"
   },
   "repository": "https://github.com/SunXinZH/react-branch-list.git",
   "author": "SunXin <xin.sun.zh@gmail.com>",
@@ -26,15 +28,19 @@
     "vs-base-kits": "^1.0.1"
   },
   "devDependencies": {
+    "@eslint/js": "^9.21.0",
     "@rollup/plugin-commonjs": "^22.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@types/node": "^22.10.10",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^16.0.0",
     "rollup": "^2.0.0",
     "rollup-plugin-typescript2": "^0.36.0",
     "tsc": "^2.0.4",
     "tslib": "^2.8.1",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.25.0"
   }
 }

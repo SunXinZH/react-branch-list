@@ -1,17 +1,13 @@
-import React from "react";
-import { useBranchListContext } from "./context";
+import React from 'react';
+import { useBranchListContext } from './context';
 
-const RenderNode: React.FC<{ defaultItemId: string }>      = ({ defaultItemId }) => {
+const RenderNode: React.FC<{ defaultItemId: string }> = ({ defaultItemId }) => {
   const [itemId, setItemId] = React.useState<string>(defaultItemId);
   const { provider, renderComponent: Component } = useBranchListContext();
   const divRef = React.useRef<HTMLDivElement>(null);
   const content = React.useMemo(() => {
     const item = provider.get(itemId);
-    return item ? (
-      <Component item={item} />
-    ) : (
-      <div className="discarded-node" />
-    );
+    return item ? <Component item={item} /> : <div className="discarded-node" />;
   }, [Component, itemId, provider]);
 
   React.useEffect(() => {
@@ -30,8 +26,8 @@ const RenderNode: React.FC<{ defaultItemId: string }>      = ({ defaultItemId })
 
   React.useEffect(() => {
     const d = provider.onDidChanged((e) => {
-      if (e.type === "remove" && e.item === itemId) {
-        setItemId("");
+      if (e.type === 'remove' && e.item === itemId) {
+        setItemId('');
       }
     });
 
@@ -45,7 +41,7 @@ const RenderNode: React.FC<{ defaultItemId: string }>      = ({ defaultItemId })
         if (itemId) {
           divRef.current.style.order = provider.indexOf(itemId).toString();
         } else {
-          divRef.current.style.order = "";
+          divRef.current.style.order = '';
         }
       }
     };
@@ -71,11 +67,7 @@ const ObserveNode: React.FC = () => {
   const [id, setId] = React.useState<string | null>(null);
   React.useEffect(() => {
     const d = provider.onDidChanged((e) => {
-      if (
-        e.type === "add" &&
-        currentId.current === null &&
-        !e.barrier.isOpen()
-      ) {
+      if (e.type === 'add' && currentId.current === null && !e.barrier.isOpen()) {
         d.dispose();
         currentId.current = e.item;
         setId(e.item);
@@ -95,14 +87,10 @@ const ObserveNode: React.FC = () => {
       d.dispose();
     };
   }, [provider]);
-  return (
-    <React.Fragment>{id && <BranchNode defaultItemId={id} />}</React.Fragment>
-  );
+  return <React.Fragment>{id && <BranchNode defaultItemId={id} />}</React.Fragment>;
 };
 
-export const BranchNode: React.FC<{ defaultItemId?: string }> = ({
-  defaultItemId = undefined,
-}) => {
+export const BranchNode: React.FC<{ defaultItemId?: string }> = ({ defaultItemId = undefined }) => {
   return (
     <React.Fragment>
       {defaultItemId && <RenderNode defaultItemId={defaultItemId} />}

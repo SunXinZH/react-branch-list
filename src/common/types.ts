@@ -30,7 +30,7 @@ export interface IBranchListController<T extends object = object> extends IDispo
 }
 
 export interface IBranchListProvider<T extends object = object> extends IBranchListController<T> {
-  readonly toRenderItems: IWaitingRenderItem[];
+  readonly waitingRenderItems: IWaitingRenderItem[];
 
   readonly onDidChanged: Event<IChangeEvent>;
   readonly onItemRendered: Event<string>;

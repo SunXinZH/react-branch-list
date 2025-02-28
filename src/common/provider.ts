@@ -4,7 +4,7 @@ import { Disposable, Emitter, Event, Barrier, Sequencer } from 'vs-base-kits';
 
 export class BranchListProvider<T extends object> extends Disposable implements IBranchListProvider<T> {
   private _items: IBranchListItem<T>[] = [];
-  private _toRenderItems: IWaitingRenderItem[] = [];
+  private _waitingRenderItems: IWaitingRenderItem[] = [];
   private _onDidChanged = this._register(new Emitter<IChangeEvent>());
   private _onPositionChanged = this._register(new Emitter<void>());
   private _onItemRendered = this._register(new Emitter<string>());
@@ -20,8 +20,8 @@ export class BranchListProvider<T extends object> extends Disposable implements 
     return this._items;
   }
 
-  get toRenderItems(): IWaitingRenderItem[] {
-    return this._toRenderItems;
+  get waitingRenderItems(): IWaitingRenderItem[] {
+    return this._waitingRenderItems;
   }
   constructor(defaultItems: IBranchListItem<T>[] = []) {
     super();
@@ -43,7 +43,7 @@ export class BranchListProvider<T extends object> extends Disposable implements 
   }
 
   popToRenderItem(): IWaitingRenderItem | undefined {
-    return this._toRenderItems.pop();
+    return this._waitingRenderItems.pop();
   }
   async push(...items: IBranchListItem<T>[]): Promise<void> {
     await this._sequencer.queue(async () => {

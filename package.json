@@ -1,6 +1,6 @@
 {
   "name": "react-branch-list",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A React component for rendering lists based on tree structures. ",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

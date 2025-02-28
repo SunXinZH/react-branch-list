@@ -8230,10 +8230,10 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-branch-list@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.npmmirror.com/react-branch-list/-/react-branch-list-0.0.5.tgz#4518640b93d056853e8036814a5f56f898c8ef03"
-  integrity sha512-R9QCkonzu2zQSBn0F4CEoavajUWC07nG5embdwxjxQdc2igOiDwGhVQ8nNfPTC8rSR4TfF86BXWQT5a9/4nLgg==
+react-branch-list@0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npmmirror.com/react-branch-list/-/react-branch-list-0.0.6.tgz#ac15bd62b25f27b7316f7a3675ed5348dfef20b5"
+  integrity sha512-0rHFrv7moriAbcMaBaUS06l3q7p1WbU6G9KqCnqHL28Xo3OZiJsShx9hGMtBymVTis0BQNwcY0lE3RmDBaXzhg==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^8.25.0"
     "@typescript-eslint/parser" "^8.25.0"

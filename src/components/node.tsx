@@ -20,7 +20,7 @@ const RenderNode: React.FC<{ defaultItemId: string }> = ({ defaultItemId }) => {
    */
   const content = React.useMemo(() => {
     const item = provider.get(itemId);
-    return item ? <Component item={item} /> : <div className="discarded-node" />;
+    return item ? <Component {...item} /> : <div className="discarded-node" />;
   }, [Component, itemId, provider]);
 
   // Notify provider when the item is rendered

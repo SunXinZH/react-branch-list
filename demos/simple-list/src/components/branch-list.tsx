@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Button, Stack, Divider } from '@mui/material';
 import { BranchList, IBranchListItem, BranchListProvider } from 'react-branch-list';
 import { ListItem } from './list-item';
 
@@ -23,20 +22,30 @@ export const BranchListDemo: React.FC = () => {
   }, []);
 
   return (
-    <Stack
-      direction="column"
-      sx={{
+    <div
+      style={{
+        display: 'flex',
         flex: 1,
+        flexDirection: 'column',
         width: '300px',
-        '.branch-list': {
-          flex: 1,
-        },
+        // '.branch-list': {
+        //   flex: 1,
+        // },
       }}
     >
-      <Stack direction="row" spacing={2} sx={{ width: '100%', overflow: 'hidden', padding: '4px' }}>
-        <Button
-          variant="contained"
-          sx={{ flex: 1 }}
+      <div
+        style={{
+          width: '100%',
+          overflow: 'hidden',
+          padding: '4px',
+          gap: '8px',
+          display: 'flex',
+          flexDirection: 'row',
+          marginBottom: '20px',
+        }}
+      >
+        <button
+          style={{ flex: 1 }}
           onClick={async () => {
             const len = provider.items.length ?? 0;
 
@@ -49,24 +58,23 @@ export const BranchListDemo: React.FC = () => {
           }}
         >
           ADD 10 Items
-        </Button>
-        <Button
-          sx={{ flex: 1 }}
-          variant="contained"
+        </button>
+        <button
+          style={{ flex: 1 }}
           onClick={() => {
             provider.clear();
           }}
         >
           Clear
-        </Button>
-      </Stack>
-      <Divider />
+        </button>
+      </div>
+
       <BranchList<ContentType>
         provider={provider}
         className="branch-list"
         direction="column"
         renderComponent={ItemComponent}
       />
-    </Stack>
+    </div>
   );
 };

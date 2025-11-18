@@ -56,4 +56,7 @@ export const BranchListDemo: React.FC = () => {
 
 ## Demos
 
-`yarn workspace @demos/simple-list start`
+```
+cd demos/simple-list
+yarn start
+```

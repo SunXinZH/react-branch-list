@@ -1,12 +1,16 @@
 {
   "name": "react-branch-list",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "A React component for rendering lists based on tree structures. ",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/types/index.d.ts",
   "files": [
     "dist"
+  ],
+  "private": true,
+  "workspaces": [
+    "./demos/*"
   ],
   "scripts": {
     "build": "node ./scripts/clean.js && rollup -c",
@@ -19,10 +23,6 @@
   "author": "SunXin <xin.sun.zh@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.25.0",
-    "@typescript-eslint/parser": "^8.25.0",
-    "eslint": "^9.21.0",
-    "eslint-plugin-prettier": "^5.2.3",
     "prettier": "^3.5.2",
     "ts-node": "^10.9.2",
     "vs-base-kits": "^1.0.1"
@@ -34,7 +34,6 @@
     "@types/node": "^22.10.10",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
-    "eslint-plugin-react": "^7.37.4",
     "globals": "^16.0.0",
     "rollup": "^2.0.0",
     "rollup-plugin-typescript2": "^0.36.0",

@@ -32,21 +32,28 @@ const ItemComponent: React.FC<IBranchListItem<ContentType>> = ({ id, content }) 
 };
 
 export const BranchListDemo: React.FC = () => {
-  const provider = React.useRef<IBranchListRef<ContentType> | null>(null);
-
-  return (
-    <BranchList
-      ref={provider}
-      className="branch-list"
-      direction="column"
-      renderComponent={ItemComponent}
-      defaultItems={new Array(5).fill(1).map((_, index) => {
+  const provider = React.useMemo<BranchListProvider<ContentType>>(() => {
+    return new BranchListProvider<ContentType>(
+      new Array(5).fill(1).map((_, index) => {
         return {
           id: `node-${index}`,
           content: `content-${index}`,
         };
-      })}
+      }),
+    );
+  }, []);
+
+  return (
+    <BranchList<ContentType>
+      provider={provider}
+      className="branch-list"
+      direction="column"
+      renderComponent={ItemComponent}
     />
   );
 };
 ```
+
+## Demos
+
+`yarn workspace @demos/simple-list start`

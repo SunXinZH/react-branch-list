@@ -1,4 +1,5 @@
 {
+  "extends": "./../../tsconfig.json",
   "compilerOptions": {
     "target": "es2021",
     "module": "commonjs",
@@ -9,13 +10,7 @@
     "strict": true,
     "pretty": true,
     "sourceMap": true,
-    "baseUrl": ".",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "allowJs": true,
-    "outDir": "release/app/dist"
+    "skipLibCheck": true
   },
   "include": ["./src", "public", "declarations.d.ts"],
   "exclude": ["test", "release/build", "release/app/dist", ".erb/dll", "./src/libs"]

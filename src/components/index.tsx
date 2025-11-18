@@ -29,6 +29,11 @@ const _BranchList = <T extends object = object>(props: IBranchListProps<T>, ref:
       renderComponent: props.renderComponent as unknown as IBranchListContext<object>['renderComponent'],
     };
   }, [props.renderComponent, provider]);
+  React.useEffect(()=>{
+    return ()=>{
+      value.provider.flush();
+    }
+  },[value])
   return (
     <BranchListContextProvider value={value}>
       <div
@@ -38,15 +43,7 @@ const _BranchList = <T extends object = object>(props: IBranchListProps<T>, ref:
           flexDirection: props.direction,
         }}
       >
-        {provider.items.length === 0 ? (
-          <BranchNode />
-        ) : (
-          <React.Fragment>
-            {provider.items.map((item) => {
-              return <BranchNode key={item.id} defaultItemId={item.id} />;
-            })}
-          </React.Fragment>
-        )}
+        <BranchNode />
       </div>
     </BranchListContextProvider>
   );

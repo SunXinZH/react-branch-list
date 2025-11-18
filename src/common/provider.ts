@@ -52,7 +52,7 @@ export class BranchListProvider<T extends object> extends Disposable implements 
    * Gets the list of items waiting to be rendered
    */
   get waitingRenderItems(): IWaitingRenderItem[] {
-    return this._waitingRenderItems;
+    return [...this._waitingRenderItems];
   }
 
   /**
@@ -65,27 +65,12 @@ export class BranchListProvider<T extends object> extends Disposable implements 
 
     // Initialize rendering queue if default items are provided
     if (this.items.length > 0) {
-      const itemsId = defaultItems.map((v) => v.id);
       this._sequencer.queue(async () => {
-        await this.waitRenderItems(itemsId);
+        const newItems = this.items.map((v)=> v.id);
+        await this.doRenderItems(newItems);
+        this._onPositionChanged.fire();
       });
     }
-
-    // Collect not rendered item
-    this._register(
-      this.onDidChanged((e) => {
-        if (e.type === 'add') {
-          setTimeout(() => {
-            if (!e.barrier.isOpen()) {
-              this._waitingRenderItems.push({
-                id: e.id,
-                barrier: e.barrier,
-              });
-            }
-          }, 0);
-        }
-      }),
-    );
   }
 
   /**
@@ -110,20 +95,36 @@ export class BranchListProvider<T extends object> extends Disposable implements 
    * Retrieves and removes the next item waiting to be rendered
    * @returns The next waiting render item, or undefined if none are waiting
    */
-  popWaitingRenderItem(): IWaitingRenderItem | undefined {
-    return this._waitingRenderItems.pop();
+  popWaitingRenderItemId(): string | undefined {
+    return this._waitingRenderItems[0]?.id;
   }
 
+  /**
+   * Release the item from the waiting list
+   * @param id ID of the waiting item 
+   */
+  releaseWaitingRenderItem(...id: string[]): void {
+    for(const i of id){
+      const index = this._waitingRenderItems.findIndex((v)=> v.id === i);
+      if(index >= 0){
+        const item = this._waitingRenderItems[index];
+        item.barrier.open();
+        this._waitingRenderItems.splice(index, 1);
+      }
+    }
+  }
   /**
    * Adds one or more items to the end of the list
    * @param items Items to be added
    * @returns Promise that resolves when the operation is complete
    */
   async push(...items: IBranchListItem<T>[]): Promise<void> {
+    const copiedItems = items.map((v)=> JSON.parse(JSON.stringify(v)));
     await this._sequencer.queue(async () => {
-      this._items.push(...items);
-      const newItems = items.map((v) => v.id);
-      await this.waitRenderItems(newItems);
+      this._items.push(...copiedItems);
+      const newItems = copiedItems.map((v) => v.id);
+      await this.doRenderItems(newItems);
+      this._onPositionChanged.fire();
     });
   }
 
@@ -137,12 +138,11 @@ export class BranchListProvider<T extends object> extends Disposable implements 
     if (index < 0) {
       return;
     }
-
+    const copiedItems = items.map((v)=> JSON.parse(JSON.stringify(v)));
     await this._sequencer.queue(async () => {
-      this._items.splice(index, 0, ...items);
-      const newItems = items.map((v) => v.id);
-      await this.waitRenderItems(newItems);
-
+      this._items.splice(index, 0, ...copiedItems);
+      const newItems = copiedItems.map((v) => v.id);
+      await this.doRenderItems(newItems);
       this._onPositionChanged.fire();
     });
   }
@@ -226,6 +226,20 @@ export class BranchListProvider<T extends object> extends Disposable implements 
   }
 
   /**
+   * fNotifies that items have been flushed, all items need to rerender
+   */
+  async flush(): Promise<void> {
+    for(const item of this._items){
+      const e: IChangeEvent = {
+        type:"add",
+        id: item.id,
+        barrier: new Barrier()
+      }
+
+      this._waitingRenderItems.push(e)
+    }
+  }
+  /**
    * Notifies that an item has been rendered
    * @param id ID of the item that was rendered
    */
@@ -241,26 +255,23 @@ export class BranchListProvider<T extends object> extends Disposable implements 
     this._onItemDisposed.fire(id);
   }
 
-  /**
-   * Waits for the specified items to be rendered
-   * @param newItems Array of item IDs to wait for
-   * @returns Promise that resolves when all items have been rendered
-   */
-  private async waitRenderItems(newItems: string[]): Promise<void> {
-    for (const item of newItems) {
-      const p = new Promise<void>((resolve) => {
-        const d = this.onItemRendered((e) => {
-          if (e === item) {
+  private async doRenderItems(newItems: string[]): Promise<void>{
+    for(const item of newItems){
+      const p = new Promise<void>((resolve)=>{
+        const d = this.onItemRendered((id)=>{
+          if(id === item){
             d.dispose();
             resolve();
           }
-        });
-      });
-      this._onDidChanged.fire({
-        type: 'add',
+        })
+      })
+      const e: IChangeEvent = {
+        type: "add",
         id: item,
-        barrier: new Barrier(),
-      });
+        barrier: new Barrier()
+      }
+      this._waitingRenderItems.push(e);
+      this._onDidChanged.fire(e);
       await p;
     }
   }

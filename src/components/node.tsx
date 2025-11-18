@@ -1,5 +1,6 @@
 import React from 'react';
 import { useBranchListContext } from './context';
+import { IDisposable } from 'vs-base-kits';
 
 /**
  * Renders a single node in the branch list
@@ -23,17 +24,15 @@ const RenderNode: React.FC<{ defaultItemId: string }> = ({ defaultItemId }) => {
     return item ? <Component {...item} /> : <div className="discarded-node" />;
   }, [Component, itemId, provider]);
 
-  // Notify provider when the item is rendered
   React.useEffect(() => {
     if (itemId) {
+      // Notify provider when the item is rendered
       provider.notifyItemRendered(itemId);
     }
-  }, [itemId, provider]);
-
-  // Cleanup effect to notify provider when the item is disposed
-  React.useEffect(() => {
     return () => {
       if (itemId) {
+        // Cleanup effect to notify provider when the item is disposed
+
         provider.notifyItemDisposed(itemId);
       }
     };
@@ -90,23 +89,22 @@ const ObserveNode: React.FC = () => {
 
   React.useEffect(() => {
     let isRendered: boolean = false;
-    const d = provider.onDidChanged((e) => {
-      if (e.type === 'add' && isRendered === false && !e.barrier.isOpen()) {
-        d.dispose();
-        isRendered = true;
-        setId(e.id);
-        e.barrier.open();
+    const d: IDisposable = provider.onDidChanged((e) => {
+      if (e.type === 'add' && !isRendered && !e.barrier.isOpen()) {
+        onRender(e.id);
       }
     });
-
-    const toRenderItem = provider.popWaitingRenderItem();
-    if (toRenderItem) {
+    const onRender = (itemId: string): void => {
       d.dispose();
       isRendered = true;
-      setId(toRenderItem.id);
-      toRenderItem.barrier.open();
-    }
+      setId(itemId);
+      provider.releaseWaitingRenderItem(itemId);
+    };
 
+    const toRenderItemId = provider.popWaitingRenderItemId();
+    if (toRenderItemId) {
+      onRender(toRenderItemId);
+    }
     return () => {
       d.dispose();
     };

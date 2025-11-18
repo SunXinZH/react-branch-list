@@ -130,6 +130,10 @@ export interface IBranchListProvider<T extends object = object> extends IBranchL
   readonly onPositionChanged: Event<void>;
 
   /**
+   * Notifies that items have been flushed, all items need to rerender
+   */
+  flush(): Promise<void>;
+  /**
    * Notifies that an item has been rendered
    * @param id ID of the item that was rendered
    */
@@ -145,5 +149,12 @@ export interface IBranchListProvider<T extends object = object> extends IBranchL
    * Retrieves the next item waiting to be rendered
    * @returns The next waiting render item, or undefined if none are waiting
    */
-  popWaitingRenderItem(): IWaitingRenderItem | undefined;
+  popWaitingRenderItemId(): string | undefined;
+
+
+  /**
+   * Release the item from the waiting list
+   * @param id ID of the waiting item 
+   */
+  releaseWaitingRenderItem(...id: string[]): void;
 }
